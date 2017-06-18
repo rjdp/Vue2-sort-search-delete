@@ -1,0 +1,119 @@
+<style class="cp-pen-styles">svg {
+  height: 0px;
+  width: 0px;
+}
+
+@keyframes loader {
+  50% {
+    transform: translateY(-16px);
+    background-color: #1b98e0;
+  }
+}
+
+.loader {
+  filter: url("#goo");
+  width: 100px;
+  margin: 0 auto;
+  position: relative;
+  top: 30%;
+  transform: translateY(-10px);
+}
+.loader > div {
+  float: left;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  background-color: #006494;
+  animation: loader 0.8s infinite;
+}
+
+.loader > div:nth-child(1) {
+  animation-delay: 0.16s;
+}
+
+.loader > div:nth-child(2) {
+  animation-delay: 0.32s;
+}
+
+.loader > div:nth-child(3) {
+  animation-delay: 0.48s;
+}
+
+.loader > div:nth-child(4) {
+  animation-delay: 0.64s;
+}
+
+.loader > div:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+
+
+   .pager-wrapper {
+        margin-top: 15px;
+        text-align: center;
+    }
+    .pager-pages {
+        display: inline-block;
+        height: 32px;
+        font-size: 0;
+    }
+    .pager-wrapper a,
+    .pager-wrapper strong {
+        display: inline-block;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 10px;
+        margin: 0 2px;
+        font-size: 14px;
+        line-height: 32px;
+        text-align: center;
+        color: #222;
+    }
+    .pager-wrapper a {
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        background-color: #fff;
+        transition: all .2s;
+        cursor: pointer;
+    }
+    .pager-wrapper a:hover {
+            color: rgb(33,150,243);
+            border-color: rgb(33,150,243);
+    }
+    .pager-wrapper .active {
+        background-color: rgb(33,150,243);
+        color: #fff;
+        border-color: rgb(33,150,243);
+    }
+    .pager-wrapper .active:hover {
+            color: #fff;
+    }
+    .pager-jump {
+        display: inline-block;
+        height: 32px;
+        margin-left: 20px;
+    }
+    .pager-jump span {
+        line-height: 32px;
+    }
+    .pager-jump em {
+        margin: 0 5px;
+        font-style: normal;
+    }
+    .pager-jump .jump-input {
+        width: 60px;
+        height: 32px;
+        padding: 5px;
+        outline: none;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        vertical-align: top;
+    }
+    .pager-jump .jump-input:focus {
+        border-color: rgb(33,150,243);
+    }
+    [v-cloak] {
+      display: none;
+    }
+</style>
