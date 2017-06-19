@@ -170,7 +170,7 @@ var app = new Vue({
         searchInPortalcity: eval(docCookies.getItem('searchInPortalcity')) == null ? true : eval(docCookies.getItem('searchInPortalcity')),
         qIsDirty: false,
         isProcessing: false,
-        maxResults: 10,
+        maxResults: 5,
         initLoad: true,
         requestError: false,
         corsProxy: 'https://cors-anywhere.herokuapp.com/',
@@ -337,11 +337,11 @@ var app = new Vue({
     computed: {
         pages() {
             let getPages = (start, end) => {
-                if (start <= 1 || start > end || start >= this.totalPage) {
+                if (start <= 1 || start > end || start >= this.totalPages) {
                     start = 2
                 }
-                if (end >= this.totalPage || end < start || end <= 1) {
-                    end = this.totalPage - 1
+                if (end >= this.totalPages || end < start || end <= 1) {
+                    end = this.totalPages - 1
                 }
                 let arr = []
                 for (let i = start; i <= end; i++) {
