@@ -32,6 +32,49 @@
         </template>
         <el-switch v-model="showTfEvents" on-color="#17c284" off-color="#1976d2" on-text="TicketFly Events" :width=140 off-text="Portal Events">
         </el-switch>
+
+<!-- <template>
+  <el-select v-model="checkedVenues" multiple placeholder="Select">
+    <el-option
+      v-for="item in venues"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id">
+      <span style="float: left">{{ item.name }}</span>
+      <span style="float: right;" v-if="item.image"><img :src="item.image.squareSmall.path"></span>
+    </el-option>
+  </el-select>
+</template>
+ -->
+
+
+<div style="width: 500px" v-if="venues.length">
+  <el-carousel arrow="always" :interval="54000" indicator-position="none" type="card"  height="145px">
+    <el-carousel-item v-for="venue in venues" :key="venue.id">
+    <el-tooltip class="item" effect="dark"  placement="top-start">
+
+    <div slot="content">{{venue.name}}<br/>{{venue.address1}}</div>
+                  <div @click="addOrRemove(venue.id)">
+            <img v-if="venue.image" :src="venue.image.medium.path" :title="venue.blurb?venue.blurb:venue.name"  width="250" height="100">
+            <img v-else src="http://blackmonk-saas.s3.amazonaws.com/static/themes/img/no-image.png"  :title="venue.blurb?venue.blurb:venue.name"  width="250" height="100">
+             <div class="mDa-dTa mRt8" style="    position: relative;
+    bottom: 50px;
+    background-color: papayawhip;">
+    <a v-if="venue.urlFacebook" :href="venue.urlFacebook" target="_blank" class="iCn-fB"><i class="bUi-iCn-fB-16" aria-hidden="true"></i></a>
+        <a v-if="venue.urlTwitter" :href="venue.urlTwitter" target="_blank" class="iCn-tW"><i class="bUi-iCn-tWr-16" aria-hidden="true"></i></a>
+        <a v-if="venue.url" :href="venue.url" target="_blank"><i class="bUi-iCn-lInK-16" aria-hidden="true"></i></a>
+        </div>
+    <label class="round" :class="{active: checkedVenues.indexOf(venue.id)!=-1}"></label>
+
+
+        </div>
+</el-tooltip>
+
+    </el-carousel-item>
+  </el-carousel>
+</div>
+       
+
         <div class="fd-cols mrb0 pd50 group">
             <!-- <template>
   <el-select v-model="defaultEventtype" placeholder="Select">

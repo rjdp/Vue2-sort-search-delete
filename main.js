@@ -2,7 +2,7 @@
 const fields = 'id,url,name,image.medium,ticketPurchaseUrl,ticketPrice,topLineInfo,eventStatus,eventStatusCode,venue.name,venue.url,venue.address1,venue.city,venue.postalCode,startDate,doorsDate,ageLimitCode';
 const orgId = 1;
 const TICKETFLY_LINK = "http://www.shareasale.com/r.cfm?B=234786&U=1493604&M=27601&urllink=";
-const PORTAL_CITY = ''.trim()
+const PORTAL_CITY = 'boston'.trim()
 const DEBOUNCE_TIME = 700;
 ELEMENT.locale(ELEMENT.lang.en)
 
@@ -172,9 +172,12 @@ var app = new Vue({
         isProcessing: false,
         maxResults: 5,
         initLoad: true,
+        checkedVenues:[],
         requestError: false,
         corsProxy: 'https://cors-anywhere.herokuapp.com/',
         baseEventsEndPoint: 'http://www.ticketfly.com/api/events/',
+        venuesEndpoint: 'http://www.ticketfly.com/api/venues/list.json',
+        venues:[],
         defaultEventtype: 'upcoming',
         eventTypeRadioOptions: [
             { value: 'list', label: 'All' },
@@ -235,6 +238,8 @@ var app = new Vue({
             }
             if (this.searchInPortalcity && this.city)
                 params['city'] = this.city
+            if (this.checkedVenues.length)
+                params['venueId'] = this.checkedVenues.join()
 
             return this.$http.get(this.eventsEndPoint, { params: params });
         },
@@ -253,23 +258,57 @@ var app = new Vue({
         }, DEBOUNCE_TIME),
         go: function(page) {
             this.pageNum = page;
+        },
+        addOrRemove(id) {
+
+            console.log("clicked")
+            let idx = this.checkedVenues.indexOf(id);
+            if(idx!=-1)
+                this.checkedVenues.splice(idx, 1)
+            else
+                this.checkedVenues.push(id)
+
         }
 
     },
     created() {
         this.isProcessing = true;
-        this.getEventsPromise().then(function(response) {
-            if (response.data.status == "ok")
+        
+        if(this.city) {
+            let venueParams = {};
+            venueParams['city'] = this.city;
+            let venuePromise = this.$http.get(this.corsProxy + this.venuesEndpoint, { params: venueParams });
+
+            this.$http.all([this.getEventsPromise(),venuePromise]).then(this.$http.spread(function(eventsData, venuesData) {
+                if (eventsData.data.status == "ok")
+                    this.isProcessing = false;
+                this.pageNum = eventsData.data.pageNum;
+                this.totalPages = eventsData.data.totalPages;
+                this.events = eventsData.data.events;
+                this.venues = venuesData.data.venues;
+                this.initLoad = false;
+            }.bind(this))).catch(function(error) {
+                this.requestError = true;
                 this.isProcessing = false;
-            this.pageNum = response.data.pageNum;
-            this.totalPages = response.data.totalPages;
-            this.events = response.data.events;
-            this.initLoad = false;
-        }.bind(this)).catch(function(error) {
-            this.requestError = true;
-            this.isProcessing = false;
-            this.initLoad = false;
-        });
+                this.initLoad = false;
+            });
+        }
+        else {
+            this.getEventsPromise().then(function(eventsData) {
+                if (eventsData.data.status == "ok")
+                    this.isProcessing = false;
+                this.pageNum = eventsData.data.pageNum;
+                this.totalPages = eventsData.data.totalPages;
+                this.events = eventsData.data.events;
+                this.initLoad = false;
+            }.bind(this)).catch(function(error) {
+                this.requestError = true;
+                this.isProcessing = false;
+                this.initLoad = false;
+            });
+
+        }
+        
     },
     watch: {
         q() {
@@ -278,6 +317,16 @@ var app = new Vue({
                 this.qIsDirty = true;
                 this.getEvents();
                 console.log('api called from q()')
+            } else {
+                this.initLoad = false;
+            }
+        },
+        checkedVenues() {
+            if (!this.initLoad && !this.isProcessing) {
+                this.pageNum = 1;
+                this.qIsDirty = true;
+                this.getEvents();
+                console.log('api called from checkedVenues()')
             } else {
                 this.initLoad = false;
             }
