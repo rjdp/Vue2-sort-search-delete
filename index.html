@@ -56,12 +56,12 @@
                   <div >
             <img  @click="addOrRemove(venue.id)" v-if="venue.image" :src="venue.image.medium.path" :title="venue.blurb?venue.blurb:venue.name"  width="250" height="100">
             <img  @click="addOrRemove(venue.id)" v-else src="http://blackmonk-saas.s3.amazonaws.com/static/themes/img/no-image.png"  :title="venue.blurb?venue.blurb:venue.name"  width="250" height="100">
-<span style="display: inline-block;position: absolute;color: #fff;font-size: 1.2em;margin-left: 0px;margin-right: 0px;left: 0; right: 0;bottom: 22px;background: rgba(0, 0, 0, 0.4);" align="center">{{venue.name}}</span>
+<span style="display: inline-block;position: absolute;color: #fff;font-size: 1.2em;margin-left: 0px;margin-right: 0px;left: 0; right: 0;bottom: 22px;background: rgba(0, 0, 0, 0.3);" align="center">{{venue.name}}</span>
              <div class="mDa-dTa mRt8" style="    position: relative;
     bottom: 50px;text-align: center;">
-   <a v-if="venue.urlFacebook" :href="venue.urlFacebook" target="_blank" class="iCn-fB" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-fB-16" aria-hidden="true"></i></a>
-        <a v-if="venue.urlTwitter" :href="venue.urlTwitter" target="_blank" class="iCn-tW" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-tWr-16" aria-hidden="true"></i></a>
-        <a v-if="venue.url" :href="venue.url" target="_blank" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-lInK-16" aria-hidden="true"></i></a>
+   <a v-if="venue.urlFacebook" title="Facebook"  :href="venue.urlFacebook" target="_blank" class="iCn-fB" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-fB-16" aria-hidden="true"></i></a>
+        <a v-if="venue.urlTwitter" title="Twitter" :href="venue.urlTwitter" target="_blank" class="iCn-tW" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-tWr-16" aria-hidden="true"></i></a>
+        <a v-if="venue.url" title="Website" :href="venue.url" target="_blank" style="display: inline-block;background-color: #fffcfc;height: 19px;width: 17px;border-radius: 50%;"><i class="bUi-iCn-lInK-16" aria-hidden="true"></i></a>
 
         </div>
     <label @click="addOrRemove(venue.id)" class="round" :class="{active: checkedVenues.indexOf(venue.id)!=-1, inactive:checkedVenues.indexOf(venue.id)==-1 }"></label>
