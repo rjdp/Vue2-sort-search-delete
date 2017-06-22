@@ -3,7 +3,7 @@ const fields = 'id,url,name,image.medium,ticketPurchaseUrl,ticketPrice,topLineIn
 const orgId = 1;
 const TICKETFLY_LINK = "http://www.shareasale.com/r.cfm?B=234786&U=1493604&M=27601&urllink=";
 const PORTAL_CITY = 'boston'.trim()
-const DEBOUNCE_TIME = 700;
+const DEBOUNCE_TIME = 400;
 ELEMENT.locale(ELEMENT.lang.en)
 
 function retryFailedRequest(err) {

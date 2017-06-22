@@ -154,6 +154,9 @@ label.active {
   border-color: #66bb6a;
 }
 
+label.inactive {
+        display: none;
+    }
 
 
 
