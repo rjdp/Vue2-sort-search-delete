@@ -268,6 +268,11 @@ var app = new Vue({
             else
                 this.checkedVenues.push(id)
 
+        },
+        clearResults() {
+            this.q = '';
+            this.dateRange = ''
+            this.checkedVenues = []
         }
 
     },
@@ -423,6 +428,11 @@ var app = new Vue({
             if (this.searchInPortalcity)
                 return "Loading New Events from " + this.city + " ...";
             return "Loading New Events from United States ..."
+        },
+        filterEnabled() {
+            if(this.q.trim() || this.checkedVenues.length || (this.dateRange && this.dateRange[0] && this.dateRange[1]))
+                return true
+            return false
         }
     }
 
