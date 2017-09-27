@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+    <!-- <script type="text/javascript" src="js/underscore-min.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.14.1/vuedraggable.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        
+          <div class="container" style="width: 50%">
+           
+            
+
+
+<draggable v-model="items">
+  <el-card class="box-card" v-for="(item, index) in items" :data-id="index" :key="item.id">
+              <el-row >
+                <el-col :span="4"> <img v-bind:src="item.title"></el-col>
+                <el-col style="max-height: 80px; overflow: auto;" :span="18"> <h4>{{item.title}} {{index}}</h4></el-col>
+                <el-col :span="2">
+                <i class="el-icon-delete" style="cursor: pointer;" @click="items.splice(index,1)"></i></el-col>
+              </el-row>
+            </el-card></draggable>
+
+<el-autocomplete style="width: 100%" v-show="items.length < 4"
+auto-complete="off" 
+:trigger-on-focus=false
+  v-model="q"
+  :fetch-suggestions="querySearch"
+  custom-item="my-item-en"
+  placeholder="Search Article"
+  icon="search"
+  @select="handleSelect" 
+></el-autocomplete>
+
+
+       </div> 
+<ul>
+  <li>
+    <img src="http://placehold.it/80X80?text=image100">
+  </li>
+</ul>
+
+</div>
+
+</body>
+<script src="main.js"></script>
+<style type="text/css">
+  img.article-img{
+    display: inline-block;
+  }
+
+  h4.link {
+    float: ;
+    margin-left: auto;
+    margin-right: auto; }
+</style>
+</html>
